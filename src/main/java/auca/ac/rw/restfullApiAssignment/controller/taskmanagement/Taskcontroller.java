@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * REST Controller for Task Management API
- */
+/
+  REST Controller for Task Management API
+ /
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
@@ -47,20 +47,20 @@ public class TaskController {
                 false, "LOW", "2024-03-05"));
     }
 
-    /**
-     * GET /api/tasks - Get all tasks
-     * @return List of all tasks
-     */
+    /
+      GET /api/tasks - Get all tasks
+      @return List of all tasks
+     /
     @GetMapping
     public ResponseEntity<List<Task>> getAllTasks() {
         return ResponseEntity.ok(tasks);
     }
 
-    /**
-     * GET /api/tasks/{taskId} - Get task by ID
-     * @param taskId The ID of the task
-     * @return Task object or 404 if not found
-     */
+    /
+      GET /api/tasks/{taskId} - Get task by ID
+      @param taskId The ID of the task
+      @return Task object or 404 if not found
+     /
     @GetMapping("/{taskId}")
     public ResponseEntity<Task> getTaskById(@PathVariable Long taskId) {
         Task task = tasks.stream()
@@ -75,11 +75,12 @@ public class TaskController {
         }
     }
 
-    /**
-     * GET /api/tasks/status?completed={true/false} - Get tasks by completion status
-     * @param completed Boolean value for completion status
-     * @return List of filtered tasks
-     */
+    /
+     
+      GET /api/tasks/status?completed={true/false} - Get tasks by completion status
+      @param completed Boolean value for completion status
+      @return List of filtered tasks
+     /
     @GetMapping("/status")
     public ResponseEntity<List<Task>> getTasksByStatus(@RequestParam boolean completed) {
         List<Task> filteredTasks = tasks.stream()
@@ -89,11 +90,11 @@ public class TaskController {
         return ResponseEntity.ok(filteredTasks);
     }
 
-    /**
-     * GET /api/tasks/priority/{priority} - Get tasks by priority
-     * @param priority Priority level (LOW, MEDIUM, HIGH)
-     * @return List of tasks with specified priority
-     */
+    /
+      GET /api/tasks/priority/{priority} - Get tasks by priority
+      @param priority Priority level (LOW, MEDIUM, HIGH)
+      @return List of tasks with specified priority
+     /
     @GetMapping("/priority/{priority}")
     public ResponseEntity<List<Task>> getTasksByPriority(@PathVariable String priority) {
         List<Task> filteredTasks = tasks.stream()
@@ -177,10 +178,10 @@ public class TaskController {
 }
 ```
 
-## 3. Testing the API
+ 3. Testing the API
 
-### Sample Requests in Postman:
+ Sample Requests in Postman:
 
-#### 1. GET All Tasks
+1. GET All Tasks
 ```
 GET http://localhost:8080/api/tasks

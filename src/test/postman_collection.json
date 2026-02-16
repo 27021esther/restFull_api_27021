@@ -1,0 +1,359 @@
+{
+  "info": {
+    "_postman_id": "userprofile-api-collection",
+    "name": "User Profile API - Complete Collection",
+    "description": "Complete Postman collection for testing the User Profile API with all 12 endpoints. Includes sample requests for CRUD operations, search, filtering, and user activation/deactivation.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "1. Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users"]
+            },
+            "description": "Retrieve all user profiles from the system. Returns a list of all users with their complete information."
+          },
+          "response": []
+        },
+        {
+          "name": "2. Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "1"]
+            },
+            "description": "Retrieve a specific user profile by their user ID. Returns 404 if user not found."
+          },
+          "response": []
+        },
+        {
+          "name": "3. Get User by Username",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/username/john_doe",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "username", "john_doe"]
+            },
+            "description": "Retrieve a user profile by their unique username. Case-insensitive search."
+          },
+          "response": []
+        },
+        {
+          "name": "4. Create New User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"sarah_jones\",\n  \"email\": \"sarah@example.com\",\n  \"fullName\": \"Sarah Jones\",\n  \"age\": 27,\n  \"country\": \"Germany\",\n  \"bio\": \"Frontend developer specializing in React\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users"]
+            },
+            "description": "Create a new user profile. Username must be unique. Returns 409 if username already exists."
+          },
+          "response": []
+        },
+        {
+          "name": "5. Update User Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"john_doe_updated\",\n  \"email\": \"john.updated@example.com\",\n  \"fullName\": \"John Doe Updated\",\n  \"age\": 26,\n  \"country\": \"USA\",\n  \"bio\": \"Senior Software developer passionate about Java and Spring\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "1"]
+            },
+            "description": "Update an existing user profile. All fields must be provided. Returns 404 if user not found."
+          },
+          "response": []
+        },
+        {
+          "name": "6. Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/5",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "5"]
+            },
+            "description": "Delete a user profile permanently. Returns 204 No Content on success, 404 if user not found."
+          },
+          "response": []
+        }
+      ],
+      "description": "Basic CRUD operations for user profile management"
+    },
+    {
+      "name": "Search & Filter",
+      "item": [
+        {
+          "name": "7. Get Users by Country",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/country/USA",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "country", "USA"]
+            },
+            "description": "Retrieve all users from a specific country. Case-insensitive search."
+          },
+          "response": []
+        },
+        {
+          "name": "8. Filter Users by Age Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/age-range?min=25&max=30",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "age-range"],
+              "query": [
+                {
+                  "key": "min",
+                  "value": "25",
+                  "description": "Minimum age (inclusive)"
+                },
+                {
+                  "key": "max",
+                  "value": "30",
+                  "description": "Maximum age (inclusive)"
+                }
+              ]
+            },
+            "description": "Filter users by age range. Both min and max parameters are required and inclusive."
+          },
+          "response": []
+        },
+        {
+          "name": "9. Get Active Users Only",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/active",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "active"]
+            },
+            "description": "Retrieve only users with active status (active = true)."
+          },
+          "response": []
+        },
+        {
+          "name": "10. Search Users by Keyword",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/search?keyword=developer",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "developer",
+                  "description": "Search keyword (searches in username, fullName, and bio)"
+                }
+              ]
+            },
+            "description": "Search users by keyword. Searches across username, full name, and bio fields. Case-insensitive."
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints for searching and filtering users"
+    },
+    {
+      "name": "User Status Management",
+      "item": [
+        {
+          "name": "11. Activate User",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/4/activate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "4", "activate"]
+            },
+            "description": "Activate a user account (sets active = true). Returns 404 if user not found."
+          },
+          "response": []
+        },
+        {
+          "name": "12. Deactivate User",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/1/deactivate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "1", "deactivate"]
+            },
+            "description": "Deactivate a user account (sets active = false). Returns 404 if user not found."
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints for managing user account status"
+    },
+    {
+      "name": "Test Scenarios",
+      "item": [
+        {
+          "name": "Test: Create User - Duplicate Username",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"john_doe\",\n  \"email\": \"duplicate@example.com\",\n  \"fullName\": \"Duplicate User\",\n  \"age\": 30,\n  \"country\": \"USA\",\n  \"bio\": \"Testing duplicate username\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users"]
+            },
+            "description": "Test case: Attempt to create user with existing username. Should return 409 Conflict."
+          },
+          "response": []
+        },
+        {
+          "name": "Test: Get Non-Existent User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/999",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "999"]
+            },
+            "description": "Test case: Attempt to get user with non-existent ID. Should return 404 Not Found."
+          },
+          "response": []
+        },
+        {
+          "name": "Test: Delete Non-Existent User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/999",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "999"]
+            },
+            "description": "Test case: Attempt to delete non-existent user. Should return 404 Not Found."
+          },
+          "response": []
+        },
+        {
+          "name": "Test: Search with No Results",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/users/search?keyword=zzzzzzzzz",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "zzzzzzzzz",
+                  "description": "Keyword that won't match any users"
+                }
+              ]
+            },
+            "description": "Test case: Search with keyword that returns no results. Should return empty array."
+          },
+          "response": []
+        }
+      ],
+      "description": "Test scenarios for error cases and edge cases"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "apiPath",
+      "value": "/api/users",
+      "type": "string"
+    }
+  ]
+}
