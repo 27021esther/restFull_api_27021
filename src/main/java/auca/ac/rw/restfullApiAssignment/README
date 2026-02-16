@@ -1,0 +1,512 @@
+Spring Boot RESTful API Assignment
+
+Student Information
+- Name: IRADUKUNDA Esther
+-Student ID:27021
+- Course: WEB-TECHNOLOGY
+- Module: Introduction to Spring Boot & Building REST Controllers
+
+---
+
+ Table of Contents
+1. Project Overview
+2. Technologies Used
+3. How to Run the Application
+4. API Endpoints
+   - Question 1: Library Book Management API
+   
+   (#question-1-library-book-management-api)
+   
+   - Question 2: Student Registration API
+   question-2-student-registration-api
+
+   - Question 3: Restaurant Menu API
+   
+   question-3-restaurant-menu-api
+
+   - Question 4: E-Commerce Product API
+   
+question-4-e-commerce-products
+
+   - Question 5: Task Management API
+   question-5-task-management-api
+
+5. Testing Screenshots
+testing-screenshots
+
+---
+
+ Project Overview
+
+This project contains RESTful API implementations for 5 different questions:
+- Library Book Management System
+- Student Registration System
+- Restaurant Menu Management
+- E-Commerce Product Catalog
+- Task/To-Do List Management
+
+Each question is implemented as a separate package with its own controller and model classes.
+
+---
+
+ Technologies Used
+
+- Java: 21 
+- Spring Boot: 3.x
+- Spring Web: REST API development
+- Maven:Build tool
+- Postman: API testing
+
+---
+
+ How to Run the Application
+
+ Prerequisites
+- Java JDK 21 or higher
+- Maven (or use included Maven wrapper)
+- Postman (for testing)
+
+ Steps to Run
+
+1. Clone the repository:
+bash
+   git clone <your-repository-url>
+   cd restfullApiAssignment
+```
+
+2. Run the application using Maven wrapper:
+   
+   Windows:
+bash
+   mvnw.cmd spring-boot:run
+
+   
+  Mac/Linux:
+```bash
+   ./mvnw spring-boot:run
+
+
+3. **Wait for the application to start:**
+```
+   Started RestfullApiAssignmentApplication in X.XXX seconds
+```
+
+4. **Application will be available at:**
+```
+   http://localhost:8080
+```
+
+5. **Test the APIs:**
+   - Open Postman
+   - Import the collection from `postman-collections/` folder
+   - OR manually test endpoints listed below
+
+---
+
+ API Endpoints
+
+---
+
+ Question 1: Library Book Management API
+
+# Base URL: `/api/books`
+
+ 1. Get All Books
+- Endpoint:GET /api/books`
+- Description:Retrieve all books in the library
+- Response Status: 200 OK
+
+Sample Response:*
+```json
+[
+  {
+    "id": 1,
+    "title": "Clean Code",
+    "author": "Robert Martin",
+    "isbn": "978-0132350884",
+    "publicationYear": 2008
+  },
+  {
+    "id": 2,
+    "title": "Effective Java",
+    "author": "Joshua Bloch",
+    "isbn": "978-0134685991",
+    "publicationYear": 2018
+  }
+]
+```
+
+2. Get Book by ID
+- Endpoint:** `GET /api/books/{id}`
+- *Description:** Get a specific book by its ID
+- *Path Variable:** `id` (Long)
+- Response Status:** 200 OK or 404 Not Found
+
+Sample Request:**
+```
+GET http://localhost:8080/api/books/1
+```
+
+*Sample Response:**
+```json
+{
+  "id": 1,
+  "title": "Clean Code",
+  "author": "Robert Martin",
+  "isbn": "978-0132350884",
+  "publicationYear": 2008
+}
+```
+
+3. Search Books by Title
+- Endpoint: `GET /api/books/search?title={title}`
+- Description:Search for books by title (partial match)
+- Query Parameter `title` (String)
+- Response Status:** 200 OK
+
+Sample Request:**
+```
+GET http://localhost:8080/api/books/search?title=Clean
+```
+
+ 4. Add New Book
+- Endpoint:** `POST /api/books`
+- Description:** Add a new book to the library
+- Request Body:** Book object (JSON)
+- Response Status:** 201 Created
+
+Sample Request:**
+```json
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "Spring Boot in Action",
+  "author": "Craig Walls",
+  "isbn": "978-1617292545",
+  "publicationYear": 2026
+}
+```
+
+**Sample Response:**
+```json
+{
+  "id": 4,
+  "title": "Spring Boot in Action",
+  "author": "Craig Walls",
+  "isbn": "978-1617292545",
+  "publicationYear": 2026
+}
+```
+
+### 5. Delete Book
+- **Endpoint:** `DELETE /api/books/{id}`
+- **Description:** Delete a book by ID
+- **Path Variable:** `id` (Long)
+- **Response Status:** 204 No Content or 404 Not Found
+
+**Sample Request:**
+```
+DELETE http://localhost:8080/api/books/1
+```
+
+---
+
+## Question 2: Student Registration API
+
+### Base URL: `/api/students`
+
+### 1. Get All Students
+- **Endpoint:** `GET /api/students`
+- **Response Status:** 200 OK
+
+**Sample Response:**
+```json
+[
+  {
+    "studentId": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@university.edu",
+    "major": "Computer Science",
+    "gpa": 3.8
+  }
+]
+```
+
+### 2. Get Student by ID
+- **Endpoint:** `GET /api/students/{studentId}`
+- **Response Status:** 200 OK or 404 Not Found
+
+### 3. Get Students by Major
+- **Endpoint:** `GET /api/students/major/{major}`
+- **Response Status:** 200 OK
+
+**Sample Request:**
+```
+GET http://localhost:8080/api/students/major/Computer Science
+```
+
+### 4. Filter Students by GPA
+- **Endpoint:** `GET /api/students/filter?gpa={minGpa}`
+- **Query Parameter:** `gpa` (Double)
+- **Response Status:** 200 OK
+
+**Sample Request:**
+```
+GET http://localhost:8080/api/students/filter?gpa=3.5
+```
+
+### 5. Register New Student
+- **Endpoint:** `POST /api/students`
+- **Response Status:** 201 Created
+
+**Sample Request:**
+```json
+POST http://localhost:8080/api/students
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane.smith@university.edu",
+  "major": "Software Engineering",
+  "gpa": 3.9
+}
+```
+
+### 6. Update Student Information
+- **Endpoint:** `PUT /api/students/{studentId}`
+- **Response Status:** 200 OK or 404 Not Found
+
+---
+
+## Question 3: Restaurant Menu API
+
+### Base URL: `/api/menu`
+
+### Endpoints Overview
+
+1. `GET /api/menu` - Get all menu items
+2. `GET /api/menu/{id}` - Get specific menu item
+3. `GET /api/menu/category/{category}` - Get items by category
+4. `GET /api/menu/available?available=true` - Get available items only
+5. `GET /api/menu/search?name={name}` - Search menu items by name
+6. `POST /api/menu` - Add new menu item
+7. `PUT /api/menu/{id}/availability` - Toggle item availability
+8. `DELETE /api/menu/{id}` - Remove menu item
+
+**Sample Menu Item Response:**
+```json
+{
+  "id": 1,
+  "name": "Caesar Salad",
+  "description": "Fresh romaine lettuce with parmesan cheese",
+  "price": 12.99,
+  "category": "Appetizer",
+  "available": true
+}
+```
+
+---
+
+## Question 4: E-Commerce Product API
+
+### Base URL: `/api/products`
+
+### Endpoints Overview
+
+1. `GET /api/products` - Get all products (with pagination)
+2. `GET /api/products/{productId}` - Get product details
+3. `GET /api/products/category/{category}` - Get products by category
+4. `GET /api/products/brand/{brand}` - Get products by brand
+5. `GET /api/products/search?keyword={keyword}` - Search products
+6. `GET /api/products/price-range?min={min}&max={max}` - Filter by price
+7. `GET /api/products/in-stock` - Get products in stock
+8. `POST /api/products` - Add new product
+9. `PUT /api/products/{productId}` - Update product
+10. `PATCH /api/products/{productId}/stock?quantity={quantity}` - Update stock
+11. `DELETE /api/products/{productId}` - Delete product
+
+**Sample Product Response:**
+```json
+{
+  "productId": 1,
+  "name": "iPhone 15 Pro",
+  "description": "Latest Apple smartphone",
+  "price": 999.99,
+  "category": "Electronics",
+  "stockQuantity": 50,
+  "brand": "Apple"
+}
+```
+
+---
+
+## Question 5: Task Management API
+
+### Base URL: `/api/tasks`
+
+### 1. Get All Tasks
+- Endpoint:** `GET /api/tasks`
+- **Response Status:** 200 OK
+
+Sample Response:
+```json
+[
+  {
+    "taskId": 1,
+    "title": "Complete Spring Boot Assignment",
+    "description": "Finish all 5 questions for the REST API assignment",
+    "completed": false,
+    "priority": "HIGH",
+    "dueDate": "2024-02-20"
+  }
+]
+```
+
+ 2. Get Task by ID
+- Endpoint: `GET /api/tasks/{taskId}`
+- Response Status: 200 OK or 404 Not Found
+
+3. Get Tasks by Status
+- Endpoint:** `GET /api/tasks/status?completed={true/false}`
+- Query Parameter:** `completed` (Boolean)
+- Response Status:** 200 OK
+
+Sample Request:
+```
+GET http://localhost:8080/api/tasks/status?completed=true
+```
+
+ 4. Get Tasks by Priority
+- Endpoint: `GET /api/tasks/priority/{priority}`
+- Path Variable:`priority` (String: LOW, MEDIUM, HIGH)
+- Response Status:200 OK
+
+Sample Request:
+```
+GET http://localhost:8080/api/tasks/priority/HIGH
+```
+
+. Create New Task
+- Endpoint: `POST /api/tasks`
+- Response Status: 201 Created
+
+Sample Request:
+```json
+POST http://localhost:8080/api/tasks
+Content-Type: application/json
+
+{
+  "title": "Learn Docker",
+  "description": "Complete Docker tutorial",
+  "completed": false,
+  "priority": "MEDIUM",
+  "dueDate": "2024-03-10"
+}
+```
+
+ 6. Update Task
+- Endpoint: `PUT /api/tasks/{taskId}`
+- Response Status: 200 OK or 404 Not Found
+
+7. Mark Task as Complete
+- Endpoint:PATCH /api/tasks/{taskId}/complete`
+- Response Status: 200 OK or 404 Not Found
+
+ 8. Delete Task
+- Endpoint: `DELETE /api/tasks/{taskId}`
+- Response Status: 204 No Content or 404 Not Found
+
+---
+
+ Testing Screenshots
+
+All API endpoints have been tested using Postman. Screenshots are available in the `screenshots/` folder:
+
+Task Management API
+- [Get All Tasks](screenshots/task-api/01-get-all-tasks.png)
+- [Get Task by ID](screenshots/task-api/02-get-task-by-id.png)
+- [Get Completed Tasks](screenshots/task-api/03-get-completed-tasks.png)
+- [Get Incomplete Tasks](screenshots/task-api/04-get-incomplete-tasks.png)
+- [Get High Priority Tasks](screenshots/task-api/05-get-high-priority.png)
+- [Create New Task](screenshots/task-api/06-post-create-task.png)
+- [Update Task](screenshots/task-api/07-put-update-task.png)
+- [Mark Task Complete](screenshots/task-api/08-patch-complete.png)
+- [Delete Task](screenshots/task-api/09-delete-task.png)
+- [404 Not Found](screenshots/task-api/10-get-404-error.png)
+
+ Library API
+- See `screenshots/library-api/` folder
+
+ Student API
+- See `screenshots/student-api/` folder
+
+ Restaurant API
+- See `screenshots/restaurant-api/` folder
+
+ E-Commerce API
+- See `screenshots/ecommerce-api/` folder
+
+---
+
+ HTTP Status Codes Used
+
+- Successful GET, PUT, PATCH requests
+ - Successful POST request (resource created)
+-* - Successful DELETE request
+-  - Resource not found
+
+---
+
+Project Structure
+```
+
+restfullApiAssignment/
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/restapi/
+│       │       ├── RestfullApiAssignmentApplication.java
+│       │       ├── library/
+│       │       │   ├── controller/BookController.java
+│       │       │   └── model/Book.java
+│       │       ├── student/
+│       │       │   ├── controller/StudentController.java
+│       │       │   └── model/Student.java
+│       │       ├── restaurant/
+│       │       │   ├── controller/MenuController.java
+│       │       │   └── model/MenuItem.java
+│       │       ├── ecommerce/
+│       │       │   ├── controller/ProductController.java
+│       │       │   └── model/Product.java
+│       │       └── task/
+│       │           ├── controller/TaskController.java
+│       │           └── model/Task.java
+│       └── resources/
+│           └── application.properties
+├── screenshots/
+│   ├── library-api/
+│   ├── student-api/
+│   ├── restaurant-api/
+│   ├── ecommerce-api/
+│   └── task-api/
+├── pom.xml
+└── README.md
+
+
+
+
+ Author
+
+IRADUKUNDA ESTHER
+Student ID: 27021  
+Email: eiradukunda874@gmail.com  
+Date: 16th February 2026
+
+---
+
+ License
+
+This project is created for educational purposes as part of the Spring Boot REST API course assignment.
